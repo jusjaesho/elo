@@ -1,274 +1,21 @@
 import math
+import csv
 
-games = [
-	{"Green Bay Packers": "Chicago Bears"},
-	{"Tennessee Titans": "Cleveland Browns"},
-	{"Minnesota Vikings": "Atlanta Falcons"},
-	{"Los Angeles Rams": "Carolina Panthers"},
-	{"Buffalo Bills": "New York Jets"},
-	{"Baltimore Ravens": "Miami Dolphins"},
-	{"Philadelphia Eagles": "Washington Redskins"},
-	{"Kansas City Chiefs": "Jacksonville Jaguars"},
-	{"Los Angeles Chargers": "Indianapolis Colts"},
-	{"Seattle Seahawks": "Cincinnati Bengals"},
-	{"Dallas Cowboys": "New York Giants"},
-	{"San Francisco 49ers": "Tampa Bay Buccaneers"},
-	{"Detroit Lions": "Arizona Cardinals"},
-	{"New England Patriots": "Pittsburgh Steelers"},
-	{"New Orleans Saints": "Houston Texans"},
-	{"Oakland Raiders": "Denver Broncos"},
-	{"Tampa Bay Buccaneers": "Carolina Panthers"},
-	{"Indianapolis Colts": "Tennessee Titans"},
-	{"Seattle Seahawks": "Pittsburgh Steelers"},
-	{"San Francisco 49ers": "Cincinnati Bengals"},
-	{"Dallas Cowboys": "Washington Redskins"},
-	{"Detroit Lions": "Los Angeles Chargers"},
-	{"Green Bay Packers": "Minnesota Vikings"},
-	{"Houston Texans": "Jacksonville Jaguars"},
-	{"Buffalo Bills": "New York Giants"},
-	{"Baltimore Ravens": "Arizona Cardinals"},
-	{"New England Patriots": "Miami Dolphins"},
-	{"Kansas City Chiefs": "Oakland Raiders"},
-	{"Chicago Bears": "Denver Broncos"},
-	{"Los Angeles Rams": "New Orleans Saints"},
-	{"Atlanta Falcons": "Philadelphia Eagles"},
-	{"Cleveland Browns": "New York Jets"},
-	{"Jacksonville Jaguars": "Tennessee Titans"},
-	{"Buffalo Bills": "Cincinnati Bengals"},
-	{"Green Bay Packers": "Denver Broncos"},
-	{"Kansas City Chiefs": "Baltimore Ravens"},
-	{"Minnesota Vikings": "Oakland Raiders"},
-	{"Dallas Cowboys": "Miami Dolphins"},
-	{"Detroit Lions": "Philadelphia Eagles"},
-	{"Indianapolis Colts": "Atlanta Falcons"},
-	{"New England Patriots": "New York Jets"},
-	{"New York Giants": "Tampa Bay Buccaneers"},
-	{"Carolina Panthers": "Arizona Cardinals"},
-	{"New Orleans Saints": "Seattle Seahawks"},
-	{"Houston Texans": "Los Angeles Chargers"},
-	{"San Francisco 49ers": "Pittsburgh Steelers"},
-	{"Los Angeles Rams": "Cleveland Browns"},
-	{"Chicago Bears": "Washington Redskins"},
-	{"Philadelphia Eagles": "Green Bay Packers"},
-	{"Carolina Panthers": "Houston Texans"},
-	{"Los Angeles Chargers": "Miami Dolphins"},
-	{"Oakland Raiders": "Indianapolis Colts"},
-	{"New England Patriots": "Buffalo Bills"},
-	{"Cleveland Browns": "Baltimore Ravens"},
-	{"Kansas City Chiefs": "Detroit Lions"},
-	{"Tennessee Titans": "Atlanta Falcons"},
-	{"New York Giants": "Washington Redskins"},
-	{"Seattle Seahawks": "Arizona Cardinals"},
-	{"Tampa Bay Buccaneers": "Los Angeles Rams"},
-	{"Chicago Bears": "Minnesota Vikings"},
-	{"Jacksonville Jaguars": "Denver Broncos"},
-	{"New Orleans Saints": "Dallas Cowboys"},
-	{"Pittsburgh Steelers": "Cincinnati Bengals"},
-	{"Seattle Seahawks": "Los Angeles Rams"},
-	{"Philadelphia Eagles": "New York Jets"},
-	{"New England Patriots": "Washington Redskins"},
-	{"Houston Texans": "Atlanta Falcons"},
-	{"New Orleans Saints": "Tampa Bay Buccaneers"},
-	{"Oakland Raiders": "Chicago Bears"},
-	{"Carolina Panthers": "Jacksonville Jaguars"},
-	{"Baltimore Ravens": "Pittsburgh Steelers"},
-	{"Arizona Cardinals": "Cincinnati Bengals"},
-	{"Buffalo Bills": "Tennessee Titans"},
-	{"Minnesota Vikings": "New York Giants"},
-	{"Denver Broncos": "Los Angeles Chargers"},
-	{"Green Bay Packers": "Dallas Cowboys"},
-	{"Indianapolis Colts": "Kansas City Chiefs"},
-	{"San Francisco 49ers": "Cleveland Browns"},
-	{"New England Patriots": "New York Giants"},
-	{"Carolina Panthers": "Tampa Bay Buccaneers"},
-	{"Washington Redskins": "Miami Dolphins"},
-	{"Minnesota Vikings": "Philadelphia Eagles"},
-	{"Houston Texans": "Kansas City Chiefs"},
-	{"Seattle Seahawks": "Cleveland Browns"},
-	{"New Orleans Saints": "Jacksonville Jaguars"},
-	{"Baltimore Ravens": "Cincinnati Bengals"},
-	{"Arizona Cardinals": "Atlanta Falcons"},
-	{"San Francisco 49ers": "Los Angeles Rams"},
-	{"Denver Broncos": "Tennessee Titans"},
-	{"New York Jets": "Dallas Cowboys"},
-	{"Pittsburgh Steelers": "Los Angeles Chargers"},
-	{"Green Bay Packers": "Detroit Lions"},
-	{"Kansas City Chiefs": "Denver Broncos"},
-	{"Buffalo Bills": "Miami Dolphins"},
-	{"Minnesota Vikings": "Detroit Lions"},
-	{"San Francisco 49ers": "Washington Redskins"},
-	{"Indianapolis Colts": "Houston Texans"},
-	{"Green Bay Packers": "Oakland Raiders"},
-	{"Jacksonville Jaguars": "Cincinnati Bengals"},
-	{"Arizona Cardinals": "New York Giants"},
-	{"Los Angeles Rams": "Atlanta Falcons"},
-	{"Tennessee Titans": "Los Angeles Chargers"},
-	{"New Orleans Saints": "Chicago Bears"},
-	{"Baltimore Ravens": "Seattle Seahawks"},
-	{"Dallas Cowboys": "Philadelphia Eagles"},
-	{"New England Patriots": "New York Jets"},
-	{"Minnesota Vikings": "Washington Redskins"},
-	{"Los Angeles Chargers": "Chicago Bears"},
-	{"Indianapolis Colts": "Denver Broncos"},
-	{"Philadelphia Eagles": "Buffalo Bills"},
-	{"Detroit Lions": "New York Giants"},
-	{"Tennessee Titans": "Tampa Bay Buccaneers"},
-	{"Seattle Seahawks": "Atlanta Falcons"},
-	{"Los Angeles Rams": "Cincinnati Bengals"},
-	{"Jacksonville Jaguars": "New York Jets"},
-	{"New Orleans Saints": "Arizona Cardinals"},
-	{"San Francisco 49ers": "Carolina Panthers"},
-	{"New England Patriots": "Cleveland Browns"},
-	{"Houston Texans": "Oakland Raiders"},
-	{"Green Bay Packers": "Kansas City Chiefs"},
-	{"Pittsburgh Steelers": "Miami Dolphins"},
-	{"San Francisco 49ers": "Arizona Cardinals"},
-	{"Houston Texans": "Jacksonville Jaguars"},
-	{"Miami Dolphins": "New York Jets"},
-	{"Philadelphia Eagles": "Chicago Bears"},
-	{"Carolina Panthers": "Tennessee Titans"},
-	{"Pittsburgh Steelers": "Indianapolis Colts"},
-	{"Buffalo Bills": "Washington Redskins"},
-	{"Kansas City Chiefs": "Minnesota Vikings"},
-	{"Oakland Raiders": "Detroit Lions"},
-	{"Seattle Seahawks": "Tampa Bay Buccaneers"},
-	{"Denver Broncos": "Cleveland Browns"},
-	{"Los Angeles Chargers": "Green Bay Packers"},
-	{"Baltimore Ravens": "New England Patriots"},
-	{"Dallas Cowboys": "New York Giants"},
-	{"Oakland Raiders": "Los Angeles Chargers"},
-	{"Atlanta Falcons": "New Orleans Saints"},
-	{"Chicago Bears": "Detroit Lions"},
-	{"Baltimore Ravens": "Cincinnati Bengals"},
-	{"Cleveland Browns": "Buffalo Bills"},
-	{"Tennessee Titans": "Kansas City Chiefs"},
-	{"New York Jets": "New York Giants"},
-	{"Tampa Bay Buccaneers": "Arizona Cardinals"},
-	{"Miami Dolphins": "Indianapolis Colts"},
-	{"Pittsburgh Steelers": "Los Angeles Rams"},
-	{"Green Bay Packers": "Carolina Panthers"},
-	{"Minnesota Vikings": "Dallas Cowboys"},
-	{"Seattle Seahawks": "San Francisco 49ers"},
-	{"Cleveland Browns": "Pittsburgh Steelers"},
-	{"Buffalo Bills": "Miami Dolphins"},
-	{"Baltimore Ravens": "Houston Texans"},
-	{"Dallas Cowboys": "Detroit Lions"},
-	{"New Orleans Saints": "Tampa Bay Buccaneers"},
-	{"Atlanta Falcons": "Carolina Panthers"},
-	{"Minnesota Vikings": "Denver Broncos"},
-	{"New York Jets": "Washington Redskins"},
-	{"Indianapolis Colts": "Jacksonville Jaguars"},
-	{"San Francisco 49ers": "Arizona Cardinals"},
-	{"Oakland Raiders": "Cincinnati Bengals"},
-	{"New England Patriots": "Philadelphia Eagles"},
-	{"Los Angeles Rams": "Chicago Bears"},
-	{"Kansas City Chiefs": "Los Angeles Chargers"},
-	{"Houston Texans": "Indianapolis Colts"},
-	{"Chicago Bears": "New York Giants"},
-	{"Seattle Seahawks": "Philadelphia Eagles"},
-	{"Washington Redskins": "Detroit Lions"},
-	{"Pittsburgh Steelers": "Cincinnati Bengals"},
-	{"Buffalo Bills": "Denver Broncos"},
-	{"Cleveland Browns": "Miami Dolphins"},
-	{"Tampa Bay Buccaneers": "Atlanta Falcons"},
-	{"New Orleans Saints": "Carolina Panthers"},
-	{"New York Jets": "Oakland Raiders"},
-	{"Tennessee Titans": "Jacksonville Jaguars"},
-	{"New England Patriots": "Dallas Cowboys"},
-	{"San Francisco 49ers": "Green Bay Packers"},
-	{"Baltimore Ravens": "Los Angeles Rams"},
-	{"Chicago Bears": "Detroit Lions"},
-	{"Buffalo Bills": "Dallas Cowboys"},
-	{"New Orleans Saints": "Atlanta Falcons"},
-	{"Green Bay Packers": "New York Giants"},
-	{"Washington Redskins": "Carolina Panthers"},
-	{"Baltimore Ravens": "San Francisco 49ers"},
-	{"Tampa Bay Buccaneers": "Jacksonville Jaguars"},
-	{"Miami Dolphins": "Philadelphia Eagles"},
-	{"Tennessee Titans": "Indianapolis Colts"},
-	{"Cincinnati Bengals": "New York Jets"},
-	{"Pittsburgh Steelers": "Cleveland Browns"},
-	{"Los Angeles Rams": "Arizona Cardinals"},
-	{"Kansas City Chiefs": "Oakland Raiders"},
-	{"Denver Broncos": "Los Angeles Chargers"},
-	{"Houston Texans": "New England Patriots"},
-	{"Seattle Seahawks": "Minnesota Vikings"},
-	{"Chicago Bears": "Dallas Cowboys"},
-	{"Baltimore Ravens": "Buffalo Bills"},
-	{"Denver Broncos": "Houston Texans"},
-	{"Green Bay Packers": "Washington Redskins"},
-	{"Atlanta Falcons": "Carolina Panthers"},
-	{"Minnesota Vikings": "Detroit Lions"},
-	{"New York Jets": "Miami Dolphins"},
-	{"Tampa Bay Buccaneers": "Indianapolis Colts"},
-	{"San Francisco 49ers": "New Orleans Saints"},
-	{"Cleveland Browns": "Cincinnati Bengals"},
-	{"Los Angeles Chargers": "Jacksonville Jaguars"},
-	{"Pittsburgh Steelers": "Arizona Cardinals"},
-	{"Tennessee Titans": "Oakland Raiders"},
-	{"Kansas City Chiefs": "New England Patriots"},
-	{"Los Angeles Rams": "Seattle Seahawks"},
-	{"Philadelphia Eagles": "New York Giants"},
-	{"Baltimore Ravens": "New York Jets"},
-	{"Green Bay Packers": "Chicago Bears"},
-	{"New England Patriots": "Cincinnati Bengals"},
-	{"Philadelphia Eagles": "Washington Redskins"},
-	{"Seattle Seahawks": "Carolina Panthers"},
-	{"Kansas City Chiefs": "Denver Broncos"},
-	{"Houston Texans": "Tennessee Titans"},
-	{"Tampa Bay Buccaneers": "Detroit Lions"},
-	{"New York Giants": "Miami Dolphins"},
-	{"Arizona Cardinals": "Cleveland Browns"},
-	{"Jacksonville Jaguars": "Oakland Raiders"},
-	{"Minnesota Vikings": "Los Angeles Chargers"},
-	{"Dallas Cowboys": "Los Angeles Rams"},
-	{"Atlanta Falcons": "San Francisco 49ers"},
-	{"Buffalo Bills": "Pittsburgh Steelers"},
-	{"New Orleans Saints": "Indianapolis Colts"},
-	{"Houston Texans": "Tampa Bay Buccaneers"},
-	{"New England Patriots": "Buffalo Bills"},
-	{"San Francisco 49ers": "Los Angeles Rams"},
-	{"Atlanta Falcons": "Jacksonville Jaguars"},
-	{"New Orleans Saints": "Tennessee Titans"},
-	{"Baltimore Ravens": "Cleveland Browns"},
-	{"New York Jets": "Pittsburgh Steelers"},
-	{"Miami Dolphins": "Cincinnati Bengals"},
-	{"Indianapolis Colts": "Carolina Panthers"},
-	{"New York Giants": "Washington Redskins"},
-	{"Oakland Raiders": "Los Angeles Chargers"},
-	{"Denver Broncos": "Detroit Lions"},
-	{"Philadelphia Eagles": "Dallas Cowboys"},
-	{"Arizona Cardinals": "Seattle Seahawks"},
-	{"Kansas City Chiefs": "Chicago Bears"},
-	{"Green Bay Packers": "Minnesota Vikings"},
-	{"New Orleans Saints": "Carolina Panthers"},
-	{"Kansas City Chiefs": "Los Angeles Chargers"},
-	{"Green Bay Packers": "Detroit Lions"},
-	{"Miami Dolphins": "New England Patriots"},
-	{"Atlanta Falcons": "Tampa Bay Buccaneers"},
-	{"Chicago Bears": "Minnesota Vikings"},
-	{"Cincinnati Bengals": "Cleveland Browns"},
-	{"New York Jets": "Buffalo Bills"},
-	{"Denver Broncos": "Oakland Raiders"},
-	{"Philadelphia Eagles": "New York Giants"},
-	{"Tennessee Titans": "Houston Texans"},
-	{"Jacksonville Jaguars": "Indianapolis Colts"},
-	{"Baltimore Ravens": "Pittsburgh Steelers"},
-	{"Dallas Cowboys": "Washington Redskins"},
-	{"Los Angeles Rams": "Arizona Cardinals"},
-	{"San Francisco 49ers": "Seattle Seahawks"}
-	]
+games = []
+
+with open('nfl_games_2019.csv') as csvfile:
+	games_list = csv.reader(csvfile)
+	for row in games_list:
+		games.append(row)
 
 teams = {}
 
 def match(winner, loser):
 
 	# constants
-
 	k = 34
 	
 	# If either of the teams do not exist, add them to the dictionary with the default rating of 1500
-	
 	if winner not in teams:
 		teams[winner] = 1500
 
@@ -276,22 +23,31 @@ def match(winner, loser):
 		teams[loser] = 1500
 
 	# Get each team's win probability
-
 	winner_prob = 1.0 * 1.0 / (1 + 1.0 * math.pow(10, 1.0 * (teams[winner] - teams[loser]) / 400))
 	loser_prob = 1.0 * 1.0 / (1 + 1.0 * math.pow(10, 1.0 * (teams[loser] - teams[winner]) / 400))
 
 	# Assign new ratings
-
 	teams[winner] = teams[winner] + k * (1 - winner_prob)
 	teams[loser] = teams[loser] + k * (0 - loser_prob)
 
 for game in games:
-	for key, value in game.items():
-		match(key, value)
+	match(game[0], game[1])
 
+for key, value in teams.items():
+	teams[key] = round(value)
+
+# Sort teams from highest rank to smallest
 final_rankings = sorted(teams.items(), key=lambda x: x[1], reverse=True)
 
-for team in final_rankings:
-	print(team[0], round(team[1]))
+# print teams by line to the console
+# for team in final_rankings:
+# 	print(team[0], round(team[1]))
+
+with open('elo_results.csv','w') as result_file:
+    wr = csv.writer(result_file)
+    wr.writerows(final_rankings)
+
+
+
 
 
